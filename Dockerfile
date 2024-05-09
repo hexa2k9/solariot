@@ -1,11 +1,24 @@
-FROM python:3.9-alpine
+FROM rockylinux:8-minimal
+
+RUN set -eux \
+    && microdnf module enable python39:3.9 \
+    && microdnf distro-sync \
+    && microdnf install python39 shadow-utils \
+    && microdnf clean all
+
+RUN set -eux \
+    && pip3 install --no-cache-dir virtualenv \
+    && groupadd -r -g 2000 solariot \
+    && adduser -r -M -u 2000 -g solariot solariot
+
+ADD --chown=solariot:solariot . /solariot
 
 WORKDIR /solariot
 
-RUN addgroup -g 2000 solariot && adduser -D -u 2000 -G solariot solariot
-COPY . /solariot/
-RUN apk add --no-cache gcc musl-dev && pip3 install --no-cache-dir --upgrade -r requirements.txt && apk del --no-cache gcc musl-dev
-
 USER solariot
-ENV PYTHONPATH="/config:$PYTHONPATH"
-CMD ["python3", "solariot.py", "-v"]
+
+RUN set -eux \
+    && virtualenv .venv \
+    && /solariot/.venv/bin/pip install --no-cache-dir -r requirements.txt
+
+ENTRYPOINT ["/solariot/.venv/bin/python", "solariot.py"]
