@@ -66,7 +66,11 @@ elif args.verbose == 1:
 else:
     log_level = logging.DEBUG
 
-logging.basicConfig(level=log_level)
+logging.basicConfig(
+    level=log_level,
+    format='%(asctime)s %(levelname)-8s %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
 
 try:
     config = import_module(args.config)
@@ -276,22 +280,22 @@ if hasattr(config, "pvoutput_api"):
             # Extended Values
             if self.metric_mappings.get("Extended Value v7") in metrics:
                 parameters["v7"] = metrics[self.metric_mappings.get("Extended Value v7")]
-                
+
             if self.metric_mappings.get("Extended Value v8") in metrics:
                 parameters["v8"] = metrics[self.metric_mappings.get("Extended Value v8")]
-                
+
             if self.metric_mappings.get("Extended Value v9") in metrics:
                 parameters["v9"] = metrics[self.metric_mappings.get("Extended Value v9")]
-                
+
             if self.metric_mappings.get("Extended Value v10") in metrics:
                 parameters["v10"] = metrics[self.metric_mappings.get("Extended Value v10")]
-                
+
             if self.metric_mappings.get("Extended Value v11") in metrics:
                 parameters["v11"] = metrics[self.metric_mappings.get("Extended Value v11")]
-                
+
             if self.metric_mappings.get("Extended Value v12") in metrics:
                 parameters["v12"] = metrics[self.metric_mappings.get("Extended Value v12")]
-            
+
             # Text Message String truncated to PVOutput's max of 30 Characters
             if self.metric_mappings.get("Text Message 1") in metrics:
                 parameters["m1"] = str(metrics[self.metric_mappings.get("Text Message 1")])[:30]
