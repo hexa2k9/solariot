@@ -1,4 +1,4 @@
-paho-mqtt>=1.5.1
+paho-mqtt>=1.5.1,<2.0.0
 pymodbus==2.5.3
 dweepy>=0.3.0
 prometheus-client>=0.9
