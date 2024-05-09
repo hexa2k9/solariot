@@ -8,17 +8,17 @@ RUN set -eux \
 
 RUN set -eux \
     && pip3 install --no-cache-dir virtualenv \
-    && groupadd -r -g 2000 solariot \
-    && adduser -r -M -u 2000 -g solariot solariot
+    && groupadd -r -g 2000 work \
+    && adduser -r -M -u 2000 -g work work
 
-ADD --chown=solariot:solariot . /solariot
+ADD --chown=work:work . /work
 
-WORKDIR /solariot
+WORKDIR /work
 
-USER solariot
+USER work
 
 RUN set -eux \
     && virtualenv .venv \
-    && /solariot/.venv/bin/pip install --no-cache-dir -r requirements.txt
+    && /work/.venv/bin/pip install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT ["/solariot/.venv/bin/python", "solariot.py"]
+ENTRYPOINT ["/work/.venv/bin/python", "solariot.py"]
