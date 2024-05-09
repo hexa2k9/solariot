@@ -1,5 +1,6 @@
 read_register = {
   "5001":  "5001",
+  "5002":  "daily_output_energy", # kWh
   "5003":  "daily_power_yield_0.01", # Wh
   "5004":  "total_power_yield_100",  # MWh
   "5008":  "internal_temp_10",
