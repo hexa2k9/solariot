@@ -12,5 +12,3 @@ LICENSE
 config.py
 telemetry.json
 .gitignore
-.dockerignore
-Dockerfile
